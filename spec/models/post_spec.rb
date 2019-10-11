@@ -1,5 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Post, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe '#photo' do
+    let(:post) { create(:post) }
+
+    it { expect(post.photo).to be_an_instance_of(ActiveStorage) }
+  end
 end
