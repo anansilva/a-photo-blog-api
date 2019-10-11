@@ -10,4 +10,22 @@ describe Api::V1::PostsController do
       expect(response.status).to eq(200)
     end
   end
+
+  describe 'GET #index' do
+    before 'create 3 posts' do
+      create_list(:post, 3)
+    end
+    
+    it 'gets the posts successfully' do
+      get :index 
+
+      expect(response.status).to eq(200)
+    end
+    
+    it 'renders all 3 posts' do 
+      get :index 
+
+      expect(JSON.parse(response.body).size).to eq(3)
+    end
+  end
 end

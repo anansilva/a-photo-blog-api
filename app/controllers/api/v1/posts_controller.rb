@@ -2,8 +2,12 @@ module Api
   module V1
     class PostsController < ApplicationController
 
+      def index
+        posts = Post.all
+        render json: posts
+      end
+
       def create
-        
         post = Post.new(photo: post_params[:photo])
         if post.save
           render json: post
