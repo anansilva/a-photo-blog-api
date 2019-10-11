@@ -27,5 +27,13 @@ describe Api::V1::PostsController do
 
       expect(JSON.parse(response.body).size).to eq(3)
     end
+
+    it 'serializes all post attributes' do
+      get :index
+
+      posts_json = JSON.parse(response.body)
+      expect(posts_json.first.keys).to match_array(['id', 'created_at', 'updated_at', 'photo'])
+      expect(posts_json.first['photo']).to include('/rails/active_storage/blobs')
+    end
   end
 end
