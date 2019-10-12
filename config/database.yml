@@ -81,5 +81,5 @@ test:
 production:
   <<: *default
   database: a_photo_blog_api_production
-  username: a_photo_blog_api
-  password: <%= ENV['A_PHOTO_BLOG_API_DATABASE_PASSWORD'] %>
+  username: <%= Rails.application.credentials.dig(:postgres, :username) %>
+  password: <%= Rails.application.credentials.dig(:postgres, :password) %>
