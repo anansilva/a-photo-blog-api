@@ -3,7 +3,7 @@ module Api
     class PostsController < ApplicationController
 
       def index
-        posts = Post.all
+        posts = Post.all.with_attached_photo
         render json: posts
       end
 
