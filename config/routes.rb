@@ -5,4 +5,6 @@ Rails.application.routes.draw do
      resources :posts, only: %i[create index]
     end
    end
+
+  get '/', to: 'api/v1/posts#index'
 end
