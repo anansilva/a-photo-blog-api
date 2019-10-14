@@ -1,9 +1,9 @@
 class PostSerializer < ActiveModel::Serializer  
   include Rails.application.routes.url_helpers
 
-  attributes :id, :created_at, :updated_at, :photo_url
+  attributes :id, :created_at, :updated_at, :photo_thumbail_url
 
-  def photo_url
+  def photo_thumbail_url
     rails_representation_path(object.photo.variant(resize_to_limit: [100, 100]), only_path: true) if object.photo.attached?
   end
 end

@@ -3,13 +3,22 @@ module Api
     class PostsController < ApplicationController
 
       def index
-        posts = Post.all.with_attached_photo
-        render json: posts
+        @posts = Post.all.with_attached_photo
+        render json: @posts
       end
 
       def create
         post = Post.new(photo: post_params[:photo])
         if post.save
+          render json: post
+        else
+          render json: post, status: :unprocessable_entity
+        end
+      end
+
+      def destroy
+        post = Post.find(params[:id])
+        if post.destroy
           render json: post
         else
           render json: post, status: :unprocessable_entity

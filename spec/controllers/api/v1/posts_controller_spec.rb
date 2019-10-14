@@ -32,8 +32,21 @@ describe Api::V1::PostsController do
       get :index
 
       posts_json = JSON.parse(response.body)
-      expect(posts_json.first.keys).to match_array(['id', 'created_at', 'updated_at', 'photo'])
-      expect(posts_json.first['photo']).to include('/rails/active_storage/blobs')
+      expect(posts_json.first.keys).to match_array(['id', 'created_at', 'updated_at', 'photo_thumbail_url'])
+      expect(posts_json.first['photo_thumbail_url']).to include('/rails/active_storage/representations')
     end
   end
+
+  describe 'DELETE #destroy' do
+    before 'create 3 posts' do
+      create_list(:post, 3)
+    end
+  
+  it 'gets the posts successfully' do
+    delete :destroy, params: { id: Post.last.id } 
+
+    expect(response.status).to eq(200)
+    expect(Post.count).to eq(2)
+  end
+end
 end
