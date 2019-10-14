@@ -42,11 +42,11 @@ describe Api::V1::PostsController do
       create_list(:post, 3)
     end
   
-  it 'gets the posts successfully' do
-    delete :destroy, params: { id: Post.last.id } 
+    it 'gets the posts successfully' do
+      delete :destroy, params: { id: Post.last.id }
 
-    expect(response.status).to eq(200)
-    expect(Post.count).to eq(2)
+      expect(response.status).to eq(200)
+      expect(Post.count).to eq(2)
+    end
   end
-end
 end
