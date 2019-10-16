@@ -32,8 +32,8 @@ describe Api::V1::PostsController do
       get :index
 
       posts_json = JSON.parse(response.body)
-      expect(posts_json.first.keys).to match_array(['id', 'created_at', 'updated_at', 'photo_thumbail_url'])
-      expect(posts_json.first['photo_thumbail_url']).to include('/rails/active_storage/representations')
+      expect(posts_json.first.keys).to match_array(['id', 'created_at', 'updated_at', 'photo_thumbnail_url'])
+      expect(posts_json.first['photo_thumbnail_url']).to include('/rails/active_storage/representations')
     end
   end
 
