@@ -31,6 +31,9 @@ gem 'active_model_serializers'
 # AWS S3 service
 gem "aws-sdk-s3", require: false
 
+# Authentication
+gem 'jwt'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'pry'
