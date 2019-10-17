@@ -6,7 +6,7 @@ RSpec.describe ::Services::Authentications::JsonWebToken do
       payload = { user_id: 1 }
       secret = 'adas123'
       
-      result = described_class.encode(payload, secret)
+      result = described_class.encode(payload)
 
       expect(result).to be_a(String)
     end
