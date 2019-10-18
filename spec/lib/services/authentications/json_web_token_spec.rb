@@ -2,8 +2,12 @@ require 'rails_helper'
 
 RSpec.describe ::Services::Authentications::JsonWebToken do
   describe '.encode' do
+    before { Timecop.freeze(Time.now) }
+    after { Timecop.return }
+
     it 'encodes a payload to a JWT token' do
-      expiring_date = Time.now + 24.hours
+      expiring_date = 24.hours.from_now
+
       payload = { user_id: 1, exp: expiring_date }
       secret = stub_const('::Services::Authentications::JsonWebToken::SECRET_KEY', '123abc')
 
