@@ -3,21 +3,27 @@ require 'rails_helper'
 RSpec.describe ::Services::Authentications::JsonWebToken do
   describe '.encode' do
     it 'encodes a payload to a JWT token' do
-      payload = { user_id: 1 }
-      secret = 'adas123'
+      expiring_date = 24.hours.from_now
+      payload = { user_id: 1, exp: expiring_date }
+      secret = stub_const('::Services::Authentications::JsonWebToken::SECRET_KEY', '123abc')
+
+      allow(JWT).to receive(:encode).with(payload, secret)
       
       result = described_class.encode(payload)
 
-      expect(result).to be_a(String)
+      expect(JWT).to have_received(:encode).with({user_id: 1, exp: expiring_date.to_i}, secret)
     end
   end
 
   describe '.decode' do
     it 'decodes a JWT token' do
-      token = "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.JqKuSBiVaI40iCw6BO-fPWhDomMAH0FGRN4FtoBt_cU"
+      token = 'this.is.jot'
+      secret = stub_const('::Services::Authentications::JsonWebToken::SECRET_KEY', '123abc')
+      allow(JWT).to receive(:decode).with(token, secret).and_return([])
+
       result = described_class.decode(token)
 
-      expect(result).to eq({'user_id' => 1})
+      expect(JWT).to have_received(:decode).with(token, secret)
     end
   end
 end
