@@ -12,6 +12,14 @@ RSpec.describe AuthenticationsController, type: :controller do
 
         is_expected.to respond_with :ok
       end
+
+      it 'returns the user' do
+        post :login, params: { email: 'user@example.com', password: 'password' }
+        
+        parsed_response = JSON.parse(response.body)
+
+        expect(JSON.parse(response.body)['id']).to eq(User.first.id)
+      end
     end
 
     context 'when providing an invalid email/password combination' do

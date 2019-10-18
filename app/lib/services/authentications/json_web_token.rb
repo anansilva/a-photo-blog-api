@@ -9,7 +9,7 @@ module Services
       end
 
       def self.decode(token)
-        JWT.decode(token, SECRET_KEY).first
+        JWT.decode(token, SECRET_KEY)[0].with_indifferent_access
       end
     end
   end
