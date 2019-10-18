@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe Api::V1::PostsController do
+  let(:user) { create(:user) }
+
   describe 'POST #create' do
     it 'creates a post successfully' do
       photo_file = fixture_file_upload("#{::Rails.root}/spec/fixtures/ruby.png", 'image/png')
@@ -13,7 +15,7 @@ describe Api::V1::PostsController do
 
   describe 'GET #index' do
     before 'create 3 posts' do
-      create_list(:post, 3)
+      create_list(:post, 3, user_id: user.id)
     end
     
     it 'gets the posts successfully' do
@@ -39,7 +41,7 @@ describe Api::V1::PostsController do
 
   describe 'DELETE #destroy' do
     before 'create 3 posts' do
-      create_list(:post, 3)
+      create_list(:post, 3, user_id: user.id)
     end
   
     it 'gets the posts successfully' do

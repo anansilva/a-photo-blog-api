@@ -3,5 +3,7 @@
 ruby_photo_file = Rack::Test::UploadedFile.new("#{::Rails.root}/spec/fixtures/ruby.png", 'image/png')
 rails_photo_file = Rack::Test::UploadedFile.new("#{::Rails.root}/spec/fixtures/rails.png", 'image/png')
 
-Post.create(photo: ruby_photo_file)
-Post.create(photo: rails_photo_file)
+user = create(:user)
+
+create(:post, photo: ruby_photo_file, user_id: user.id)
+create(post, photo: rails_photo_file, user_id: user.id)

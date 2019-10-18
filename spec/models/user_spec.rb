@@ -7,6 +7,6 @@ RSpec.describe User, type: :model do
   end
 
   describe '#password' do
-    it { should validate_presence_of(:password) }
+    it { should validate_presence_of(:password_digest) }
   end
 end
