@@ -1,4 +1,6 @@
-class AuthenticationsController < ApplicationController  
+class AuthenticationsController < ApplicationController 
+  skip_before_action :authorize_request
+   
   def login
     if find_user&.authenticate(login_params[:password])
       token = Services::Authentications::JsonWebToken.encode(
