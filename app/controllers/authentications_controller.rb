@@ -10,6 +10,7 @@ class AuthenticationsController < ApplicationController
 
       render json: { token: token,
                      exp: expiring_date,
+                     user_id: find_user.id,
                      user_email: find_user.email },
              status: :ok
     else
