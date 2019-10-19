@@ -2,7 +2,7 @@ module Api
   module V1
     class PostsController < ApplicationController
       def index
-        @posts = Post.all.with_attached_photo
+        @posts = current_user.posts.with_attached_photo
         render json: @posts
       end
 

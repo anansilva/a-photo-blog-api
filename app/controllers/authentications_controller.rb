@@ -1,20 +1,20 @@
 class AuthenticationsController < ApplicationController 
   skip_before_action :authorize_request
-   
+
   def login
     if find_user&.authenticate(login_params[:password])
       token = Services::Authentications::JsonWebToken.encode(
-        { user_id: find_user.id, user_email: find_user.email }, 
+        { user_id: find_user.id, user_email: find_user.email },
         expiring_date
       )
-      
-      render json: { token: token, 
+
+      render json: { token: token,
                      exp: expiring_date,
-                     user_email: find_user.email
-                    }, status: :ok
+                     user_email: find_user.email },
+             status: :ok
     else
       render status: :unauthorized
-    end        
+    end
   end
 
   private

@@ -29,18 +29,20 @@ describe Api::V1::PostsController do
 
   describe 'GET #index' do
     context 'when user is signed in' do
+      let(:another_user) { create(:user, email: 'another@user.com') }
       before 'sign in user, create posts and request index' do
         allow(controller).to receive(:authorize_request).and_return(true)
         allow(controller).to receive(:current_user) { user }
 
         create_list(:post, 3, user_id: user.id)
+        create_list(:post, 2, user_id: another_user.id)
 
         get :index
       end
 
       it { is_expected.to respond_with :success }
 
-      it 'renders all 3 posts' do
+      it 'renders only the 3 posts belonging to the user' do
         expect(JSON.parse(response.body).size).to eq(3)
       end
 
