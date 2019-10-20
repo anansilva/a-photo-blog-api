@@ -8,7 +8,7 @@ class Post < ApplicationRecord
   private
 
   def correct_image_mime_type
-    return if photo.attached? && photo.content_type.in?(%w[image/png image/jpg])
+    return if photo.attached? && photo.content_type.in?(%w[image/png image/jpg image/jpeg])
 
     errors.add(:document, 'Must be a png or jpg image file')
   end
