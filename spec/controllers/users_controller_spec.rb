@@ -44,4 +44,18 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       end
     end
   end
+
+  describe 'DELETE #destroy' do
+    before 'create 3 users' do
+      create_list(:user, 3)
+
+      delete :destroy, params: { id: User.last.id }
+    end
+
+    it { is_expected.to respond_with :success }
+
+    it 'decreases the number of Users by one' do
+      expect(User.count).to eq(2)
+    end
+  end
 end
